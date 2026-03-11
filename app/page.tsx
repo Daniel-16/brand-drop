@@ -844,7 +844,7 @@ export default function LandingPage() {
           </span>
         </div>
         <p style={{ fontSize: 12, color: "var(--text-muted)" }}>
-          Powered by <span style={{ color: "var(--gold)" }}>Gemini 3.1</span> · Built for Nigerian SMBs · © 2025 BrandDrop
+          Powered by <span style={{ color: "var(--gold)" }}>Gemini 3.1</span> · Built for Nigerian SMBs · © {new Date().getFullYear()} BrandDrop
         </p>
         <Link href="/app">
           <span style={{ fontSize: 12, color: "var(--gold)", cursor: "pointer" }}>Launch App →</span>
