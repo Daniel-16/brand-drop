@@ -7,7 +7,8 @@ import Step2BrandDNA from "../components/Step2BrandDNA";
 import Step3Campaign from "../components/Step3Campaign";
 import Step4Results from "../components/Step4Results";
 import LoadingScreen from "../components/LoadingScreen";
-import Link from "next/link";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 type Step = 1 | 2 | 3 | 4;
 type LoadingType = "brand" | "content" | null;
@@ -38,21 +39,17 @@ export default function Home() {
   const [loading, setLoading] = useState<LoadingType>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // Step 1 data
   const [formData, setFormData] = useState({
     businessName: "", industry: "", description: "",
     image: null as File | null, preview: "",
   });
 
-  // Step 2 data
   const [brandDNA, setBrandDNA] = useState<BrandDNA | null>(null);
 
-  // Step 3 data
   const [platforms, setPlatforms] = useState<string[]>(["instagram"]);
   const [campaignTheme, setCampaignTheme] = useState("");
   const [customGoal, setCustomGoal] = useState("");
 
-  // Step 4 data
   const [content, setContent] = useState<Content | null>(null);
   const [imageBase64, setImageBase64] = useState<string>("");
 
@@ -158,34 +155,10 @@ export default function Home() {
         }} />
       </div>
 
-      {/* Header */}
-      <Link href="/">
-      <header style={{
-        padding: "24px 40px", display: "flex", alignItems: "center", justifyContent: "space-between",
-        borderBottom: "1px solid var(--border)", position: "relative", zIndex: 10,
-        background: "rgba(8,7,5,0.8)", backdropFilter: "blur(12px)",
-      }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{
-            width: 32, height: 32, borderRadius: 8,
-            background: "linear-gradient(135deg, var(--gold) 0%, var(--amber) 100%)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-          }}>
-            <span style={{ fontSize: 16, fontWeight: 700, color: "#1a1000" }}>B</span>
-          </div>
-          <span style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, fontWeight: 600, letterSpacing: "-0.02em" }}>
-            Brand<span className="text-gold-gradient">Drop</span>
-          </span>
-        </div>
-        <span style={{ fontSize: 12, color: "var(--text-muted)", letterSpacing: "0.04em" }}>
-          Brand kit in 60 seconds ✦
-        </span>
-      </header>
-      </Link>
+        <Header />     
 
       {/* Main content */}
       <main style={{ position: "relative", zIndex: 5, padding: "60px 40px", maxWidth: 1100, margin: "0 auto" }}>
-        {/* Step indicator — hide during loading */}
         {!loading && step < 4 && (
           <StepIndicator current={step} />
         )}
@@ -252,16 +225,7 @@ export default function Home() {
           )}
         </AnimatePresence>
       </main>
-
-      {/* Footer */}
-      <footer style={{
-        padding: "24px 40px", borderTop: "1px solid var(--border)",
-        textAlign: "center", position: "relative", zIndex: 5,
-      }}>
-        <p style={{ fontSize: 12, color: "var(--text-muted)" }}>
-          Powered by <span style={{ color: "var(--gold)" }}>Gemini 3.1</span> · Built with BrandDrop ✦
-        </p>
-      </footer>
+      <Footer />
     </div>
   );
 }
