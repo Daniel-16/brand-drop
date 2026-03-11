@@ -35,7 +35,7 @@ Built specifically for **SMBs in emerging markets** (Nigeria and West Africa) wh
 
 ---
 
-## ✦ Features
+## Features
 
 | Feature | Description |
 |---|---|
