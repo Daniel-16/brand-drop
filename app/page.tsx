@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import Link from "next/link";
 
 /* ─── Tiny hook: count-up animation ─── */
@@ -139,11 +139,30 @@ function FeatureRow({ icon, title, desc, reverse = false, delay = 0 }: {
 }
 
 /* ─── Animated brand tag ─── */
-function FloatingTag({ text, color, style }: { text: string; color: string; style: React.CSSProperties }) {
+const FLOATING_TAG_TRANSITIONS = [
+  { duration: 3 + Math.random() * 2, delay: Math.random() * 2 },
+  { duration: 3 + Math.random() * 2, delay: Math.random() * 2 },
+  { duration: 3 + Math.random() * 2, delay: Math.random() * 2 },
+  { duration: 3 + Math.random() * 2, delay: Math.random() * 2 },
+  { duration: 3 + Math.random() * 2, delay: Math.random() * 2 },
+  { duration: 3 + Math.random() * 2, delay: Math.random() * 2 },
+];
+
+function FloatingTag(
+  { text, color, style, duration, delay }: {
+    text: string; color: string; style: React.CSSProperties;
+    duration?: number; delay?: number;
+  }
+) {
   return (
     <motion.div
       animate={{ y: [0, -8, 0] }}
-      transition={{ duration: 3 + Math.random() * 2, repeat: Infinity, ease: "easeInOut", delay: Math.random() * 2 }}
+      transition={{
+        duration: duration ?? 4,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay: delay ?? 1,
+      }}
       style={{
         position: "absolute",
         padding: "6px 14px", borderRadius: 100,
@@ -166,7 +185,7 @@ function Testimonial({ quote, name, role, delay }: { quote: string; name: string
         padding: "28px", borderRadius: 16,
         background: "var(--bg-card)", border: "1px solid var(--border)",
       }}>
-        <div style={{ fontSize: 28, color: "var(--gold)", marginBottom: 14, fontFamily: "Georgia, serif" }}>"</div>
+        <div style={{ fontSize: 28, color: "var(--gold)", marginBottom: 14, fontFamily: "Georgia, serif" }}>&quot;</div>
         <p style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.75, marginBottom: 20 }}>{quote}</p>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <div style={{
@@ -301,12 +320,12 @@ export default function LandingPage() {
         }} />
 
         {/* Floating tags around hero */}
-        <FloatingTag text="✦ Brand Voice" color="#D4973B" style={{ top: "22%", left: "8%" }} />
-        <FloatingTag text="Color Palette 🎨" color="#E8B86A" style={{ top: "35%", left: "5%" }} />
-        <FloatingTag text="Instagram Ready" color="#E1306C" style={{ top: "20%", right: "7%" }} />
-        <FloatingTag text="⚡ 60 Seconds" color="#4CAF7D" style={{ top: "38%", right: "6%" }} />
-        <FloatingTag text="WhatsApp Broadcast" color="#25D366" style={{ bottom: "28%", left: "7%" }} />
-        <FloatingTag text="Personality Tags" color="#9B6B22" style={{ bottom: "30%", right: "8%" }} />
+        <FloatingTag text="✦ Brand Voice" color="#D4973B" style={{ top: "22%", left: "8%" }} {...FLOATING_TAG_TRANSITIONS[0]} />
+        <FloatingTag text="Color Palette 🎨" color="#E8B86A" style={{ top: "35%", left: "5%" }} {...FLOATING_TAG_TRANSITIONS[1]} />
+        <FloatingTag text="Instagram Ready" color="#E1306C" style={{ top: "20%", right: "7%" }} {...FLOATING_TAG_TRANSITIONS[2]} />
+        <FloatingTag text="⚡ 60 Seconds" color="#4CAF7D" style={{ top: "38%", right: "6%" }} {...FLOATING_TAG_TRANSITIONS[3]} />
+        <FloatingTag text="WhatsApp Broadcast" color="#25D366" style={{ bottom: "28%", left: "7%" }} {...FLOATING_TAG_TRANSITIONS[4]} />
+        <FloatingTag text="Personality Tags" color="#9B6B22" style={{ bottom: "30%", right: "8%" }} {...FLOATING_TAG_TRANSITIONS[5]} />
 
         {/* Hero content */}
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="hero-content" >

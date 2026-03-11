@@ -31,7 +31,7 @@ Based on the image and context, extract a comprehensive Brand DNA. Return ONLY a
 Be specific and thoughtful. Colors should complement each other and suit the industry. Personality tags should be evocative.`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.1-pro-preview",
+      model: "gemini-3-flash-preview",
       contents: [
         {
           role: "user",

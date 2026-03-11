@@ -7,6 +7,7 @@ import Step2BrandDNA from "../components/Step2BrandDNA";
 import Step3Campaign from "../components/Step3Campaign";
 import Step4Results from "../components/Step4Results";
 import LoadingScreen from "../components/LoadingScreen";
+import Link from "next/link";
 
 type Step = 1 | 2 | 3 | 4;
 type LoadingType = "brand" | "content" | null;
@@ -158,6 +159,7 @@ export default function Home() {
       </div>
 
       {/* Header */}
+      <Link href="/">
       <header style={{
         padding: "24px 40px", display: "flex", alignItems: "center", justifyContent: "space-between",
         borderBottom: "1px solid var(--border)", position: "relative", zIndex: 10,
@@ -179,6 +181,7 @@ export default function Home() {
           Brand kit in 60 seconds ✦
         </span>
       </header>
+      </Link>
 
       {/* Main content */}
       <main style={{ position: "relative", zIndex: 5, padding: "60px 40px", maxWidth: 1100, margin: "0 auto" }}>
