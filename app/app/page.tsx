@@ -38,7 +38,8 @@ export default function Home() {
   const [step, setStep] = useState<Step>(1);
   const [loading, setLoading] = useState<LoadingType>(null);
   const [error, setError] = useState<string | null>(null);
-
+  const [, setImageError] = useState(false);
+  
   const [formData, setFormData] = useState({
     businessName: "", industry: "", description: "",
     image: null as File | null, preview: "",
@@ -111,6 +112,8 @@ export default function Home() {
       setContent(contentRes.value.content);
       if (imageRes.status === "fulfilled" && imageRes.value.success) {
         setImageBase64(imageRes.value.imageBase64);
+      } else {
+        setImageError(true);
       }
       setStep(4);
     } catch (e: unknown) {
@@ -136,8 +139,8 @@ export default function Home() {
     setPlatforms(prev => prev.includes(p) ? prev.filter(x => x !== p) : [...prev, p]);
   };
 
-  const displayStep = loading ? (loading === "brand" ? 1.5 : 3.5) : step;
-  const indicatorStep = loading === "brand" ? 2 : loading === "content" ? 4 : step;
+  // const displayStep = loading ? (loading === "brand" ? 1.5 : 3.5) : step;
+  // const indicatorStep = loading === "brand" ? 2 : loading === "content" ? 4 : step;
 
   return (
     <div style={{ minHeight: "100vh", position: "relative" }}>

@@ -5,25 +5,38 @@ const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
 
 export async function POST(req: NextRequest) {
   try {
-    const { brandDNA, businessName, industry, description, platforms, campaignTheme, customGoal } = await req.json();
+    const {
+      brandDNA,
+      businessName,
+      industry,
+      description,
+      platforms,
+      campaignTheme,
+      customGoal,
+    } = await req.json();
 
-    const platformInstructions = platforms.map((p: string) => {
-      if (p === "instagram") return `
+    const platformInstructions = platforms
+      .map((p: string) => {
+        if (p === "instagram")
+          return `
 Instagram:
 - bio: Punchy 150-char bio with relevant emojis
 - caption: Engaging caption (max 150 words), story-driven, ends with a CTA
 - hashtags: Array of 15 highly targeted hashtags (mix of niche, mid, broad)`;
-      if (p === "facebook") return `
+        if (p === "facebook")
+          return `
 Facebook:
 - bio: Professional page about section (max 255 chars)
 - caption: Conversational caption (max 200 words), community-focused, includes a question to drive engagement
 - hashtags: Array of 5-8 relevant hashtags`;
-      if (p === "whatsapp") return `
+        if (p === "whatsapp")
+          return `
 WhatsApp:
 - statusCaption: Ultra-short punchy status (max 40 words, no hashtags)
 - broadcastMessage: Personal broadcast message (max 120 words), conversational tone like talking to a customer, includes price/offer hint if relevant, ends with contact instruction`;
-      return "";
-    }).join("\n");
+        return "";
+      })
+      .join("\n");
 
     const prompt = `You are an elite social media copywriter specializing in Nigerian SMB brands.
 
@@ -36,7 +49,7 @@ Brand DNA:
 - Campaign Theme: ${campaignTheme}
 - Custom Goal: ${customGoal || "Increase brand awareness and drive sales"}
 
-Generate compelling social media content for each platform. Make it feel authentic, culturally relevant for Nigeria/West Africa where applicable, and aligned with the brand voice.
+Generate compelling social media content for each platform. Make it feel authentic, culturally relevant for Nigeria/West Africa where applicable, and aligned with the brand voice. Also, search for trending hashtags and keywords for each platform.
 
 ${platformInstructions}
 
